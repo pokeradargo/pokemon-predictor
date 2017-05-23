@@ -70,8 +70,13 @@ boxplot(appears$windSpeed)
 # Strong breeze <= 50
 # High wind > 50
 ################################################
+## Take a look again
+summary(appears$windSpeed)
+hist(appears$windSpeed)
+boxplot(appears$windSpeed)
 appearsProcessed$windSpeed <- apply(appearsProcessed, 1, tranformWindSpeedToFactorVariable)
 appearsProcessed$windSpeed <- as.factor(appearsProcessed$windSpeed)
+# Seems good :)
 
 ## Transform wind bearing as factor variable
 ## Take a look of the data
@@ -91,6 +96,10 @@ boxplot(appears$windBearing)
 ################################################
 appearsProcessed$windBearing <- apply(appearsProcessed, 1, transformWindBearingToFactorVariable)
 appearsProcessed$windBearing <- as.factor(appearsProcessed$windBearing)
-
+# We can take a look again
+summary(appears$windBearing)
+hist(appears$windBearing)
+boxplot(appears$windBearing)
+# The wind only comes from the North and North East, so we have a lot of classes without individuals 
 appearsProcessed$windBearing <- NULL
 

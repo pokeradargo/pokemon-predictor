@@ -19,7 +19,6 @@ unique(appears$appearedMonth) # Only one value, so we can delete from dataset
 appearsProcessed$appearedMonth <- NULL
 
 ### Delete the continous variables of hour and minute which are described as time of day
-### (May be we can factorize it?)
 appearsProcessed$appearedHour <- NULL
 appearsProcessed$appearedMinute <- NULL
 appearsProcessed$appearedDay <- NULL
