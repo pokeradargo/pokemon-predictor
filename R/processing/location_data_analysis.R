@@ -50,3 +50,8 @@ appearsProcessed[, locationCoordinatesMatches] <- NULL
 ## Transform closeToWater variable into categories
 appearsProcessed$closeToWater <- apply(appearsProcessed, 1, tranformCloseToWaterToFactorVariable)
 appearsProcessed$closeToWater <- as.factor(appearsProcessed$closeToWater)
+
+# Check the city
+unique(appearsProcessed$city)
+# 98 levels... it's a lot! We can't handle this as factor variable with this number of observations per class
+appearsProcessed$city <- NULL
