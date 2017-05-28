@@ -3,6 +3,10 @@ source("R/functions.R")
 appears <- read.csv("data/300k.csv",header=T, check.names = FALSE)
 ## Display the columns
 appearColNames <- colnames(appears)
+## Define the number of rows to analyze
+nRows <- 10000
+## Store 10000 random observations into another variable to start the pre-processing
+#appearsProcessed <- appears[sample(1:nRows, replace = TRUE),]
 appearsProcessed <- appears
 
 ## Delete co-occurrence variables
@@ -29,3 +33,9 @@ source("R/processing/weather_data_analysis.R")
 
 # Generate the Naive Bayes predictor
 source("R/model/naive_bayes.R")
+
+# Generate the multinomial regression model
+source("R/model/multinomial_regression.R")
+
+# Generate the SVM model
+
