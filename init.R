@@ -9,10 +9,6 @@ nRows <- 10000
 #appearsProcessed <- appears[sample(1:nRows, replace = TRUE),]
 appearsProcessed <- appears
 
-## Delete co-occurrence variables
-coocMatches <- subset(appearColNames, grepl("cooc_", appearColNames))
-appearsProcessed[, coocMatches] <- NULL
-
 ## I don't know the reference of the X_id identifier, so we can delete it.
 appearsProcessed$X_id <- NULL
 appearsProcessed$'_id' <- NULL
@@ -25,17 +21,18 @@ appearsProcessed$pokemonId <- as.factor(appearsProcessed$pokemonId)
 # Let's analyze the time data!
 source("R/processing/time_data_analysis.R")
 
-# Let's analyze the location data!
+# Let's analyze the co ocurrences data!
 source("R/processing/location_data_analysis.R")
 
-# Let's analyze the wather data!
+# Let's analyze the weather data!
 source("R/processing/weather_data_analysis.R")
+
+# Let's analyze the co-occurence data
+source("R/processing/co_occurences_data_analysis.R")
 
 # Generate the Naive Bayes predictor
 source("R/model/naive_bayes.R")
 
 # Generate the multinomial regression model
 source("R/model/multinomial_regression.R")
-
-# Generate the SVM model
 
