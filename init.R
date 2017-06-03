@@ -28,7 +28,7 @@ source("R/processing/location_data_analysis.R")
 source("R/processing/weather_data_analysis.R")
 
 # Let's analyze the co-occurence data
-source("R/processing/co_occurences_data_analysis.R")
+source("R/processing/co_occurrences_data_analysis.R")
 
 # Generate the Naive Bayes predictor
 source("R/model/naive_bayes.R")
