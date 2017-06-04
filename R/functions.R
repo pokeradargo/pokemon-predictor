@@ -25,15 +25,9 @@ defineDayOfWeek <- function(appear){
 transformTerrainType <- function(appear) {
   terrainType <- as.integer(appear["terrainType"])
   if (terrainType == 0) "Water"
-  else if (terrainType == 1) "Evergreen Needleleaf forest"
-  else if (terrainType == 2) "Evergreen Broadleaf forest"
-  else if (terrainType == 3) "Deciduous Needleleaf forest"
-  else if (terrainType == 4) "Deciduous Broadleaf forest"
-  else if (terrainType == 5) "Mixed forest"
-  else if (terrainType == 6) "Closed shrublands"
-  else if (terrainType == 7) "Open shrublands"
-  else if (terrainType == 8) "Woody savannas"
-  else if (terrainType == 9) "Savannas"
+  else if (terrainType == 1 || terrainType == 2 || terrainType == 3 || terrainType == 4 || terrainType == 5) "Forest"
+  else if (terrainType == 6 || terrainType == 7) "Shrublands"
+  else if (terrainType == 8 || terrainType == 9) "Savannas"
   else if (terrainType == 10) "Grasslands"
   else if (terrainType == 11) "Permanent wetlands"
   else if (terrainType == 12) "Croplands"
@@ -172,3 +166,18 @@ groupContinents <- function(appear) {
   else if (appear["continent"] == "Atlantic") "Europe"
   else appear["continent"]
 }
+  
+generateCombinationFilter <- function(appears, row) {
+    which(
+      as.numeric(appears$pokemonId) == as.numeric(row["pokemonId"]) &
+        as.numeric(appears$appearedTimeOfDay) == as.numeric(row["appearedTimeOfDay"]) &
+        as.numeric(appears$appearedDayOfWeek) == as.numeric(row["appearedDayOfWeek"]) &
+        as.numeric(appears$terrainType) == as.numeric(row["terrainType"]) &
+        as.numeric(appears$closeToWater) == as.numeric(row["closeToWater"]) &
+        as.numeric(appears$continent) == as.numeric(row["continent"]) &
+        as.numeric(appears$temperature) == as.numeric(row["temperature"]) & 
+        as.numeric(appears$windSpeed) == as.numeric(row["windSpeed"]) & 
+        as.numeric(appears$pressure) == as.numeric(row["pressure"]) &
+        as.numeric(appears$weatherIcon) == as.numeric(row["weatherIcon"])
+    )
+  }

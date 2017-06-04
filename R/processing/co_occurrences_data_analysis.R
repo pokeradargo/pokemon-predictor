@@ -3,7 +3,10 @@
 coocMatches <- subset(appearColNames, grepl("cooc_", appearColNames))
 
 # Transform co occurences to a numeric values
-
+appearsProcessed[, coocMatches] <- lapply(appearsProcessed[, coocMatches], function(occurrence) {
+  as.integer(as.logical(occurrence))
+})
+  
 # Delete coo ocurrence columns and put into another variable
 appearedCategories <- appearsProcessed
 appearedCategories[, coocMatches] <- NULL
@@ -11,36 +14,13 @@ appearedCategories[, coocMatches] <- NULL
 # Delete repeated values
 appearedCategories <- unique(appearedCategories)
 
-# Get all the levels of every category (included PokémonID)
-#appearedLevels <- sapply(appearedCategories, levels)
-
-## Put all the categoric variables on the same level
-#appearedCategories$pokemonId <- factor(appearedCategories$pokemonId, levels=appearedLevels$pokemonId)
-
 by(appearedCategories, 1:nrow(appearedCategories), function(row, appears){
-  
-  appearsMatched <- appearsProcessed[which(
-        appearsProcessed$pokemonId == as.character(row["pokemonId"])&
-        appearsProcessed$appearedTimeOfDay == as.character(row["appearedTimeOfDay"]) &
-        appearsProcessed$appearedDayOfWeek == as.character(row["appearedDayOfWeek"]) &
-        appearsProcessed$terrainType == as.character(row["terrainType"]) &
-        appearsProcessed$closeToWater == as.character(row["closeToWater"]) &
-        appearsProcessed$continent == as.character(row["continent"]) &
-        appearsProcessed$temperature == as.character(row["temperature"]) & 
-        appearsProcessed$windSpeed == as.character(row["windSpeed"]) & 
-        appearsProcessed$pressure == as.character(row["pressure"]) &
-        appearsProcessed$weatherIcon == as.character(row["weatherIcon"])
-    ),]
-  (length(appearsMatched))
-  
+  # Generate filter to obtain the rows matched with this combination
+  combineFilter <- generateCombinationFilter(appears, row)
+  appearsMatched <- appears[combineFilter,]
+  # Sum all the cooc variables by columns
+  appearsMatched[, coocMatches] <- lapply(appearsMatched[, coocMatches], sum)
+  # Set to appears Processed variable
+  appears[combineFilter,] <- appearsMatched
+
 }, appears = appearsProcessed)
-
-library(doBy)
-
-doSomething <- function(group) {
-  (group)
-}
-appearsGrouped <- summaryBy(. ~ pokestopDistance, data=appearsProcessed, FUN="length")
-
-# foreach appeareance we have to count the number of co-occurences of every Pokémon
-appearsProcessed <- apply(appearsProcessed, 1, countNumberOfOcurrences)
