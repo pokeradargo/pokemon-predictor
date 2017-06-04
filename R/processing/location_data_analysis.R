@@ -55,3 +55,10 @@ appearsProcessed$closeToWater <- as.factor(appearsProcessed$closeToWater)
 unique(appearsProcessed$city)
 # 98 levels... it's a lot! We can't handle this as factor variable with this number of observations per class
 appearsProcessed$city <- NULL
+
+#Check the continent
+plot(appearsProcessed$continent)
+levels(appearsProcessed$continent)
+# There are more than 7 continents here.. (6 if you are not considering antarctica)
+appearsProcessed$continent <- apply(appearsProcessed, 1, groupContinents)
+appearsProcessed$continent <- as.factor(appearsProcessed$continent)

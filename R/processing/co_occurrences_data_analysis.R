@@ -17,8 +17,7 @@ appearedCategories <- unique(appearedCategories)
 ## Put all the categoric variables on the same level
 #appearedCategories$pokemonId <- factor(appearedCategories$pokemonId, levels=appearedLevels$pokemonId)
 
-appearedCategories[1:10,]
-by(appearedCategories[1:10,], 1:10, function(row, appears){
+by(appearedCategories, 1:nrow(appearedCategories), function(row, appears){
   
   appearsMatched <- appearsProcessed[which(
         appearsProcessed$pokemonId == as.character(row["pokemonId"])&

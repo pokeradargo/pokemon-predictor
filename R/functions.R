@@ -162,3 +162,13 @@ transformWindBearingToFactorVariable <- function(appear) {
   else if (appear["windBearing"] < 292.5) "West"
   else if (appear["windBearing"] < 337.5) "North-West"
 }
+
+groupContinents <- function(appear) {
+  if (appear["continent"] == "Indian") "Asia"
+  else if (appear["continent"] == "America/Kentucky") "America"
+  else if (appear["continent"] == "America/Argentina") "America"
+  else if (appear["continent"] == "America/Indiana") "America"
+  else if (appear["continent"] == "Pacific") "America"
+  else if (appear["continent"] == "Atlantic") "Europe"
+  else appear["continent"]
+}
