@@ -14,7 +14,7 @@ appearedCategories[, coocMatches] <- NULL
 # Delete repeated values
 appearedCategories <- unique(appearedCategories)
 
-by(appearedCategories, 1:nrow(appearedCategories), function(row, appears){
+by(appearedCategories[1:10,], 1:10, function(row, appears){
   # Generate filter to obtain the rows matched with this combination
   combineFilter <- generateCombinationFilter(appears, row)
   appearsMatched <- appears[combineFilter,]
@@ -22,5 +22,6 @@ by(appearedCategories, 1:nrow(appearedCategories), function(row, appears){
   appearsMatched[, coocMatches] <- lapply(appearsMatched[, coocMatches], sum)
   # Set to appears Processed variable
   appears[combineFilter,] <- appearsMatched
+  (appears[combineFilter,])
 
 }, appears = appearsProcessed)

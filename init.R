@@ -18,10 +18,13 @@ appearsProcessed$class <- NULL
 # We have to factorize Pokémon ID
 appearsProcessed$pokemonId <- as.factor(appearsProcessed$pokemonId)
 
+# Sort the dataset by time
+appearsProcessed[order(as.Date(appearsProcessed$appearedLocalTime, format='%Y-%m-%dT%H:%M:%S'), decreasing=TRUE),]
+
 # Let's analyze the time data!
 source("R/processing/time_data_analysis.R")
 
-# Let's analyze the co ocurrences data!
+# Let's analyze the location data!
 source("R/processing/location_data_analysis.R")
 
 # Let's analyze the weather data!
@@ -35,4 +38,7 @@ source("R/model/naive_bayes.R")
 
 # Generate the multinomial regression model
 source("R/model/multinomial_regression.R")
+
+# Generate the logistic regression model
+source("R/model/logistic_regression.R")
 
