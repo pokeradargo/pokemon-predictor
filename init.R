@@ -19,7 +19,7 @@ appearsProcessed$class <- NULL
 appearsProcessed$pokemonId <- as.factor(appearsProcessed$pokemonId)
 
 # Sort the dataset by time
-appearsProcessed[order(as.Date(appearsProcessed$appearedLocalTime, format='%Y-%m-%dT%H:%M:%S'), decreasing=TRUE),]
+appearsProcessed[order(as.Date(appearsProcessed$appearedLocalTime, format='%Y-%m-%dT%H:%M:%S'), decreasing=FALSE),]
 
 # Let's analyze the time data!
 source("R/processing/time_data_analysis.R")

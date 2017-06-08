@@ -2,18 +2,20 @@
 
 library(caret)
 library(klaR)
+# Analizamos la variable respuesta para ver qué Pokémon aparecen más veces
 
-# With Pokémon [1]
+# With Pokémon [10]
 appearsDF <- as.data.frame(appearsProcessed)
 # Transform pokemonId to a boolean variable
 appearsDF$isPokemon<- apply(appearsDF, 1, function(appear){
-  if (appear["pokemonId"] == 1) "Yes"
+  if (appear["pokemonId"] == 35) "Yes"
   else "No"
 })
 appearsDF$isPokemon<- as.factor(appearsDF$isPokemon)
 appearsDF$pokemonId <- NULL
 
 # Provisional
+coocMatches <- subset(appearColNames, grepl("cooc_", appearColNames))
 appearsDF[,coocMatches] <- NULL
 
 # Split data 80% for training
@@ -23,10 +25,10 @@ split=0.80*totalRows
 # Split dataset
 dataTrain <- appearsDF[1:split,]
 dataTest <- appearsDF[split:totalRows,]
-trainIndex <- createDataPartition(appearsDF$isPokemon, p=split, list=FALSE)
-# make predictions
-xTest <- dataTest[,-13]
-yTest <- dataTest[,13]
+
+dataTest <- dataTest[which(dataTest$appearedDayOfWeek != "viernes"),]
+
+#trainIndex <- createDataPartition(appearsDF$isPokemon, p=split, list=FALSE)
 # Generate the model
 model <- glm(isPokemon ~ ., family=binomial(link='logit'), data=dataTrain)
 
@@ -35,7 +37,11 @@ anova(model, test="Chisq")
 
 # Assessing the predictive ability of the model
 fitted.results <- predict(model,newdata=dataTest,type='response')
-fitted.results <- ifelse(fitted.results > 0.2,1,0)
+fitted.results <- ifelse(fitted.results > 0.18,1,0)
+
+# Analizamos la variable T de Student para validar si cada modelo es correcto
+t.test(fitted.results  ~ dataTest$isPokemon)
+boxplot(fitted.results  ~ dataTest$isPokemon)
 
 misClasificError <- mean(fitted.results != dataTest)
 print(paste('Accuracy',1-misClasificError))
@@ -50,4 +56,10 @@ plot(prf)
 auc <- performance(pr, measure = "auc")
 auc <- auc@y.values[[1]]
 auc
+
+# Creamos varios modelos por los Pokémon con más frecuencia
+
+# Predicción global: predecimos cada row con los modelos que hemos creado, y acumulamos los modelos predictivos hasta llegar al 70%
+# Si no llegamos al 70%, no predecimos y hacemos un "skip"
+
 
