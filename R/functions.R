@@ -167,17 +167,20 @@ groupContinents <- function(appear) {
   else appear["continent"]
 }
   
-generateCombinationFilter <- function(appears, row) {
+generateCombinationFilter <- function(appearsProcessed, row) {
     which(
-      as.numeric(appears$pokemonId) == as.numeric(row["pokemonId"]) &
-        as.numeric(appears$appearedTimeOfDay) == as.numeric(row["appearedTimeOfDay"]) &
-        as.numeric(appears$appearedDayOfWeek) == as.numeric(row["appearedDayOfWeek"]) &
-        as.numeric(appears$terrainType) == as.numeric(row["terrainType"]) &
-        as.numeric(appears$closeToWater) == as.numeric(row["closeToWater"]) &
-        as.numeric(appears$continent) == as.numeric(row["continent"]) &
-        as.numeric(appears$temperature) == as.numeric(row["temperature"]) & 
-        as.numeric(appears$windSpeed) == as.numeric(row["windSpeed"]) & 
-        as.numeric(appears$pressure) == as.numeric(row["pressure"]) &
-        as.numeric(appears$weatherIcon) == as.numeric(row["weatherIcon"])
+      as.numeric(appearsProcessed$pokemonId) == as.numeric(row["pokemonId"]) &
+      as.numeric(appearsProcessed$appearedTimeOfDay) == as.numeric(row["appearedTimeOfDay"]) &
+      as.numeric(appearsProcessed$appearedDayOfWeek) == as.numeric(row["appearedDayOfWeek"]) &
+      as.numeric(appearsProcessed$terrainType) == as.numeric(row["terrainType"]) &
+      as.numeric(appears$closeToWater) == as.numeric(row["closeToWater"]) &
+      as.numeric(appearsProcessed$continent) == as.numeric(row["continent"]) &
+      as.numeric(appearsProcessed$temperature) == as.numeric(row["temperature"]) & 
+      as.numeric(appearsProcessed$windSpeed) == as.numeric(row["windSpeed"]) & 
+      as.numeric(appearsProcessed$pressure) == as.numeric(row["pressure"]) &
+      as.numeric(appearsProcessed$weatherIcon) == as.numeric(row["weatherIcon"]) & 
+      as.numeric(appearsProcessed$gymDistance) == as.numeric(row["gymDistance"]) & 
+      as.numeric(appearsProcessed$pokestopDistance) == as.numeric(row["pokestopDistance"]) & 
+      as.numeric(appearsProcessed$urbanization) == as.numeric(row["urbanization"])
     )
   }

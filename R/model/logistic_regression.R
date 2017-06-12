@@ -5,7 +5,7 @@ library(klaR)
 # Analizamos la variable respuesta para ver qué Pokémon aparecen más veces
 
 # With Pokémon [10]
-appearsDF <- as.data.frame(appearsProcessed)
+appearsDF <- as.data.frame(coocAppearsProcessed)
 # Transform pokemonId to a boolean variable
 appearsDF$isPokemon<- apply(appearsDF, 1, function(appear){
   if (appear["pokemonId"] == 35) "Yes"
@@ -13,10 +13,6 @@ appearsDF$isPokemon<- apply(appearsDF, 1, function(appear){
 })
 appearsDF$isPokemon<- as.factor(appearsDF$isPokemon)
 appearsDF$pokemonId <- NULL
-
-# Provisional
-coocMatches <- subset(appearColNames, grepl("cooc_", appearColNames))
-appearsDF[,coocMatches] <- NULL
 
 # Split data 80% for training
 totalRows=nrow(appearsDF)

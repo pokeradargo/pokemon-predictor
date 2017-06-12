@@ -14,14 +14,15 @@ appearedCategories[, coocMatches] <- NULL
 # Delete repeated values
 appearedCategories <- unique(appearedCategories)
 
-by(appearedCategories[1:10,], 1:10, function(row, appears){
+coocAppearsProcessed <- appearsProcessed[0,]
+for (i in 1:nrow(appearedCategories)) {
   # Generate filter to obtain the rows matched with this combination
-  combineFilter <- generateCombinationFilter(appears, row)
-  appearsMatched <- appears[combineFilter,]
+  combineFilter <- generateCombinationFilter(appearsProcessed, appearedCategories[i,])
+  appearsMatched <- appearsProcessed[combineFilter,]
   # Sum all the cooc variables by columns
   appearsMatched[, coocMatches] <- lapply(appearsMatched[, coocMatches], sum)
   # Set to appears Processed variable
-  appears[combineFilter,] <- appearsMatched
-  (appears[combineFilter,])
+  coocAppearsProcessed <- rbind(coocAppearsProcessed, appearsMatched)
+}
 
-}, appears = appearsProcessed)
+write.table(coocAppearsProcessed, file="cooc_appears_processed.csv")
