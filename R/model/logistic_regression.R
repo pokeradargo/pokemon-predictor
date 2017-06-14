@@ -5,7 +5,8 @@ library(klaR)
 # Analizamos la variable respuesta para ver qué Pokémon aparecen más veces
 
 # With Pokémon [10]
-appearsDF <- as.data.frame(coocAppearsProcessed)
+#appearsDF <- as.data.frame(coocAppearsProcessed)
+appearsDF <- as.data.frame(read.csv("cooc_appears_processed.csv",header=T, sep=" ", check.names = FALSE))
 # Transform pokemonId to a boolean variable
 appearsDF$isPokemon<- apply(appearsDF, 1, function(appear){
   if (appear["pokemonId"] == 35) "Yes"
@@ -33,7 +34,7 @@ anova(model, test="Chisq")
 
 # Assessing the predictive ability of the model
 fitted.results <- predict(model,newdata=dataTest,type='response')
-fitted.results <- ifelse(fitted.results > 0.18,1,0)
+fitted.results <- ifelse(fitted.results > 0.2,1,0)
 
 # Analizamos la variable T de Student para validar si cada modelo es correcto
 t.test(fitted.results  ~ dataTest$isPokemon)
