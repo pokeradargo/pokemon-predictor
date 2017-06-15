@@ -9,7 +9,7 @@ library(klaR)
 appearsDF <- as.data.frame(read.csv("cooc_appears_processed.csv",header=T, sep=" ", check.names = FALSE))
 # Transform pokemonId to a boolean variable
 appearsDF$isPokemon<- apply(appearsDF, 1, function(appear){
-  if (appear["pokemonId"] == 35) "Yes"
+  if (as.numeric(appear["pokemonId"]) == 16) "Yes"
   else "No"
 })
 appearsDF$isPokemon<- as.factor(appearsDF$isPokemon)
@@ -24,6 +24,7 @@ dataTrain <- appearsDF[1:split,]
 dataTest <- appearsDF[split:totalRows,]
 
 dataTest <- dataTest[which(dataTest$appearedDayOfWeek != "viernes"),]
+dataTest <- dataTest[which(dataTest$appearedDayOfWeek != "domingo"),]
 
 #trainIndex <- createDataPartition(appearsDF$isPokemon, p=split, list=FALSE)
 # Generate the model
