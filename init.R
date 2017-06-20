@@ -40,5 +40,6 @@ source("R/model/naive_bayes.R")
 source("R/model/multinomial_regression.R")
 
 # Generate the logistic regression model
+source("R/model/create_model.R")
 source("R/model/logistic_regression.R")
 
