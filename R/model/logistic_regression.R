@@ -11,7 +11,7 @@ pokemonIds <- c(13,21,133,96,41,10,48,129, 46, 98, 23, 32, 54, 29, 60, 118, 35, 
 for (pokemonId in pokemonIds) {
   appearsForModel <- appearsDF
   model <- createModel(appearsForModel, pokemonId)
-  saveRDS(model, paste("model_pokemon_",toString(pokemonId),".rds",sep=""))
+  saveRDS(model, paste("../model_pokemon_",toString(pokemonId),".rds",sep=""))
   
   if (validateModel(appearsForModel, model, pokemonId) == TRUE) {
     print (paste("Pokémon",toString(pokemonId),"saved!", sep=" "))
@@ -24,4 +24,7 @@ for (pokemonId in pokemonIds) {
 # Predicción global: predecimos cada row con los modelos que hemos creado, y acumulamos los modelos predictivos hasta llegar al 70%
 # Si no llegamos al 70%, no predecimos y hacemos un "skip"
 
-
+# Measure of creation model execution time
+# ptm <- proc.time()
+# model <- createModel(appearsDF, 16)
+# (proc.time() - ptm)
