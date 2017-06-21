@@ -18,9 +18,6 @@ for (pokemonId in pokemonIds) {
   }
 }
 
-
-
-
 # Predicción global: predecimos cada row con los modelos que hemos creado, y acumulamos los modelos predictivos hasta llegar al 70%
 # Si no llegamos al 70%, no predecimos y hacemos un "skip"
 

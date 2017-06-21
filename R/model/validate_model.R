@@ -57,10 +57,12 @@ positives <- 0
 negatives <- 0
 for (test in dataTest) {
   if (predictPokemon(test)) {
-    positives <- positives +1
+    positives <- positives + 1
   } else {
     negatives <- negatives + 1
   }
 }
 
+(positives/negatives)
 
+(positives/(positives+negatives))
