@@ -11,8 +11,6 @@ createModel <- function(appears, pokemonId) {
   appears$isPokemon<- as.factor(appears$isPokemon)
   appears$pokemonId <- NULL
   
-  "Hola Buenos DIAS"
-  
   # Split data 80% for training
   totalRows=nrow(appears)
   split=0.80*totalRows
