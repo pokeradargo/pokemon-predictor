@@ -11,15 +11,12 @@ createModel <- function(appears, pokemonId) {
   appears$isPokemon<- as.factor(appears$isPokemon)
   appears$pokemonId <- NULL
   
-  "Hola Buenos DIAS"
-  
   # Split data 80% for training
   totalRows=nrow(appears)
   split=0.80*totalRows
   
   # Split dataset
   dataTrain <- appears[1:split,]
-  dataTest <- appears[split:totalRows,]
 
   # Generate the model
   model <- glm(isPokemon ~ ., family=binomial(link='logit'), data=dataTrain)
@@ -28,10 +25,16 @@ createModel <- function(appears, pokemonId) {
 }
 
 
-validateModel <- function(model, pokemonId) {
+validateModel <- function(appears, model, pokemonId) {
+  
+  # Split data 20% for test
+  totalRows=nrow(appears)
+  split=0.80*totalRows
+  dataTest <- appears[split:totalRows,]
+  
   # Analyze the table of deviance
   #anova(model, test="Chisq")
-  
+
   # Assessing the predictive ability of the model
   fitted.results <- predict(model,newdata=dataTest,type='response')
   fitted.results <- ifelse(fitted.results > 0.4,1,0)

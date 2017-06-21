@@ -2,18 +2,18 @@
 
 library(ROCR)
 # Let's analyze the response variable to see the most frequently Pokémon
-appearsDF <- as.data.frame(read.csv("output/cooc_appears_processed.csv",header=T, sep=",", check.names = FALSE))
+appearsDF <- as.data.frame(read.csv("output/cooc_appears_processed.csv",header=T, sep=" ", check.names = FALSE))
 summary(as.factor(appearsDF$pokemonId))
 # We gonna take a look to the Pokémons with more than 200 appears
-pokemonIds <- c(16,19,13,21,133,96,41,10,48,129)
+pokemonIds <- c(13,21,133,96,41,10,48,129, 46, 98, 23, 32, 54, 29, 60, 118, 35, 43, 129, 46, 98, 23, 32, 54, 29, 60, 118, 25, 43, 120, 69, 17)
 # Creamos varios modelos por los Pokémon con más frecuencia
 
 for (pokemonId in pokemonIds) {
   appearsForModel <- appearsDF
   model <- createModel(appearsForModel, pokemonId)
+  saveRDS(model, paste("model_pokemon_",toString(pokemonId),".rds",sep=""))
   
-  if (validateModel(model, pokemonId) == TRUE) {
-    saveRDS(model, paste("model_pokemon_",toString(pokemonId),".rds",sep=""))
+  if (validateModel(appearsForModel, model, pokemonId) == TRUE) {
     print (paste("Pokémon",toString(pokemonId),"saved!", sep=" "))
   }
 }
