@@ -44,20 +44,17 @@ appearColNames <- colnames(appearsDF)
 coocMatches <- subset(appearColNames, grepl("cooc_", appearColNames))
 remove(appearsDF)
 
+appearedCombinations <- readRDS("../appearedCombinations.rds")
+
 #for (i in seq(1, length(appearedCombinations))) {
 for (i in 1:1) {
   appearedCombination <- appearedCombinations[i,]
   # Set coo ocurrence columns to 0
   appearedCombination[, coocMatches] <- 0
-  # Hack, delete when the models have been generated again
-  if (appearedCombination$appearedDayOfWeek == "domingo") {
-    appearedCombination$appearedDayOfWeek <- "lunes"
-  }
-  #remove(appearedCombination$appearedDayOfWeek)
   # Get model output
   modelOutput <- getModelOutput(appearedCombination)
-  appearedCombination[, coocMatches]
+  appearedCombination[, coocMatches] <- NULL
   output <- rbind(appearedCombination, modelOutput)
-  #es <- elastic("http://ci.adsmurai.net:9200", "dataoutput", "json") %index% output
+  es <- elastic("http://ci.adsmurai.net:9200", "dataoutput", "json") %index% output
 }
 
