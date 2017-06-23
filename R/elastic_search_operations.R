@@ -3,11 +3,14 @@ install.packages("elasticsearchr")
 library(elasticsearchr)
 
 ## Insert
+
 data <- data.frame(list("test","hola"))
 
+data <- appearsDF[1,]
+ptm <- proc.time()
 es <- elastic("http://ci.adsmurai.net:9200", "dataoutput", "json") %index% data
-
-
+proc.time() - ptm
+ 
 
 install.packages("elastic")
 library(elastic)

@@ -1,4 +1,4 @@
-appearsDF <- as.data.frame(read.csv("../cooc_appears_processed.csv",header=T, sep=" ", check.names = FALSE))
+appearsDF <- as.data.frame(read.csv("../cooc_appears_processed.csv",header=T, sep=",", check.names = FALSE))
 
 
 predictPokemon <- function(row) {
