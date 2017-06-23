@@ -40,6 +40,10 @@ source("R/model/naive_bayes.R")
 source("R/model/multinomial_regression.R")
 
 # Generate the logistic regression model
-source("R/model/create_model.R")
 source("R/model/logistic_regression.R")
+source("R/model/create_model.R")
+source("R/model/validate_model.R")
 
+# Predict all possible combinations
+source("R/processing/generate_all_combinations.R")
+source("R/model/predict_all_combinations.R")

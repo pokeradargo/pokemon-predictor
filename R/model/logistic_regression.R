@@ -10,6 +10,10 @@ pokemonIds <- c(13,21,133,96,41,10,48,129, 46, 98, 23, 32, 54, 29, 60, 118, 35, 
 
 for (pokemonId in pokemonIds) {
   appearsForModel <- appearsDF
+  
+  # Delete day of week
+  remove(appearsForModel$appearedDayOfWeek)
+  
   model <- createModel(appearsForModel, pokemonId)
   saveRDS(model, paste("../model_pokemon_",toString(pokemonId),".rds",sep=""))
   
