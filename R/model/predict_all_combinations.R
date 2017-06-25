@@ -32,7 +32,7 @@ getModelOutput <- function(row) {
     accumulatedPrediction <- accumulatedPrediction + bestPrediction$prediction
   }
   
-  modelOutput <- data.frame(predictedPokemons, accumulatedPrediction)
+  modelOutput <- data.frame(predictedPokemons=paste(unlist(predictedPokemons), collapse = ","), accumulatedPrediction)
   
   modelOutput
 }
@@ -54,7 +54,7 @@ for (i in 1:1) {
   # Get model output
   modelOutput <- getModelOutput(appearedCombination)
   appearedCombination[, coocMatches] <- NULL
-  output <- rbind(appearedCombination, modelOutput)
-  es <- elastic("http://ci.adsmurai.net:9200", "dataoutput", "json") %index% output
+  output <- cbind(appearedCombination, modelOutput)
+  #es <- elastic("http://ci.adsmurai.net:9200", "dataoutput", "json") %index% output
 }
 
