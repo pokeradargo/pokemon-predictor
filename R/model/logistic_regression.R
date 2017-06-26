@@ -14,8 +14,8 @@ for (pokemonId in pokemonIds) {
   # Delete day of week
   remove(appearsForModel$appearedDayOfWeek)
   
-  model <- createModel(appearsForModel, pokemonId)
-  saveRDS(model, paste("../model_pokemon_",toString(pokemonId),".rds",sep=""))
+  model <- createModel(appearsForModel, 19)
+  saveRDS(model, paste("../model_pokemon_",toString(19),".rds",sep=""))
   
   if (validateModel(appearsForModel, model, pokemonId) == TRUE) {
     print (paste("Pokémon",toString(pokemonId),"saved!", sep=" "))

@@ -46,8 +46,7 @@ remove(appearsDF)
 
 appearedCombinations <- readRDS("../appearedCombinations.rds")
 
-#for (i in seq(1, length(appearedCombinations))) {
-for (i in 1:1) {
+for (i in seq(1, length(appearedCombinations))) {
   appearedCombination <- appearedCombinations[i,]
   # Set coo ocurrence columns to 0
   appearedCombination[, coocMatches] <- 0
@@ -55,6 +54,6 @@ for (i in 1:1) {
   modelOutput <- getModelOutput(appearedCombination)
   appearedCombination[, coocMatches] <- NULL
   output <- cbind(appearedCombination, modelOutput)
-  #es <- elastic("http://ci.adsmurai.net:9200", "dataoutput", "json") %index% output
+  es <- elastic("http://ci.adsmurai.net:9200", "dataoutput", "json") %index% output
 }
 
